@@ -14,12 +14,12 @@ class CurrencyRateController extends AbstractController
     public function index(Request $request): JsonResponse
     {
         // Replace 'YOUR_ACCESS_KEY' with your actual API access key
-        $accessKey = '6e56c316f00700490478d9c3040193bd';
-        $baseUrl = 'http://api.exchangeratesapi.io/v1/latest';
+        $accessKey = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
+        $baseUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
 
         // Define parameters for the API request
         $params = [
-            'access_key' => $accessKey,
+            'nessession' => $accessKey,
         ];
 
         // Build the URL with parameters
@@ -35,7 +35,7 @@ class CurrencyRateController extends AbstractController
         // Your controller logic here
         return $this->json([
             'message' => 'Exchange rates retrieved successfully!',
-            'data' => $data['success'],
+            'data' => $data,
         ]);
     }
 }

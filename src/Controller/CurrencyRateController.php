@@ -12,8 +12,8 @@ class CurrencyRateController extends AbstractController
 {
     #[Route('/currency/rate', name: 'app_currency_rate')]
     public function index(Request $request): JsonResponse
-    {   
-        
+    {
+
         $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
         $accessToken = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
 
@@ -53,3 +53,5 @@ class CurrencyRateController extends AbstractController
                 'statusCode' => $response->getStatusCode(),
             ], $response->getStatusCode());
         }
+    }
+};

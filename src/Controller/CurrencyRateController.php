@@ -32,7 +32,7 @@ class CurrencyRateController extends AbstractController
 
         $httpClient = HttpClient::create();
 
-        $response = $httpClGET->request('GET', $apiUrl, [
+        $response = $httpClient->request('GET', $apiUrl, [
             'headers' => [
                 'nessession' => $accessToken,
                 'Content-Type' => 'application/json',

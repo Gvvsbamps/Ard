@@ -10,7 +10,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class CurrencyRateController extends AbstractController
 {
-    #[Route('/currency/rate', name: 'app_currency_rate')]
+    #[Route('/', name: 'app_currency_rate')]
     public function index(Request $request): JsonResponse
     {
         // Replace 'YOUR_ACCESS_KEY' with your actual API access key

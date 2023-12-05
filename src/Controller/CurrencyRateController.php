@@ -13,29 +13,45 @@ class CurrencyRateController extends AbstractController
     #[Route('/', name: 'app_currency_rate')]
     public function index(Request $request): JsonResponse
     {
-        // Replace 'YOUR_ACCESS_KEY' with your actual API access key
-        $accessKey = '6e56c316f00700490478d9c3040193bd';
-        $baseUrl = 'http://api.exchangeratesapi.io/v1/latest';
 
-        // Define parameters for the API request
-        $params = [
-            'access_key' => $accessKey,
+        $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
+        $accessToken = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
+
+        $requestData = [
+            'brokerId' => '32',
+            'securityCode' => 'AARD-O-0000',
+            'infoType' => '',
+            'mostId' => '',
+            'connId' => 0,
+            'marketCode' => '',
+            'affCustId' => '',
+            'srcFiCode' => '32',
+            'traceNo' => '',
+            'wallet' => '',
         ];
 
-        // Build the URL with parameters
-        $url = $baseUrl . '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
-
-        // Make API request using Symfony HttpClient
         $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', $url);
 
-        // Get the response content as an array
-        $data = $response->toArray();
-
-        // Your controller logic here
-        return $this->json([
-            'message' => 'Exchange rates retrieved successfully!',
-            'data' => $data['success'],
+        $response = $httpClient->request('GET', $apiUrl, [
+            'headers' => [
+                'nessession' => $accessToken,
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $requestData,
         ]);
+
+        if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+            $data = $response->toArray();
+
+            return $this->json([
+                'message' => 'Exchange rates retrieved successfully!',
+                'data' => $data,
+            ]);
+        } else {
+            return $this->json([
+                'error' => 'Failed to retrieve exchange rates.',
+                'statusCode' => $response->getStatusCode(),
+            ], $response->getStatusCode());
+        }
     }
-}
+};

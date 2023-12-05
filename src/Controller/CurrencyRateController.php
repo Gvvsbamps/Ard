@@ -15,29 +15,29 @@ class CurrencyRateController extends AbstractController
     {
 
         $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
-        $accessToken = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
+        // $accessToken = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
 
-        $requestData = [
-            'brokerId' => '32',
-            'securityCode' => 'AARD-O-0000',
-            'infoType' => '',
-            'mostId' => '',
-            'connId' => 0,
-            'marketCode' => '',
-            'affCustId' => '',
-            'srcFiCode' => '32',
-            'traceNo' => '',
-            'wallet' => '',
-        ];
+        // $requestData = [
+        //     'brokerId' => '32',
+        //     'securityCode' => 'AARD-O-0000',
+        //     'infoType' => '',
+        //     'mostId' => '',
+        //     'connId' => 0,
+        //     'marketCode' => '',
+        //     'affCustId' => '',
+        //     'srcFiCode' => '32',
+        //     'traceNo' => '',
+        //     'wallet' => '',
+        // ];
 
         $httpClient = HttpClient::create();
 
         $response = $httpClient->request('GET', $apiUrl, [
             'headers' => [
-                'nessession' => $accessToken,
+                // 'nessession' => $accessToken,
                 'Content-Type' => 'application/json',
             ],
-            'json' => $requestData,
+            // 'json' => $requestData,
         ]);
 
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {

@@ -30,12 +30,12 @@ class CurrencyRateController extends AbstractController
         $response = $httpClient->request('GET', $url);
 
         // Get the response content as an array
-        $data = $response->toArray();
+        // $data = $response->toArray();
 
         // Your controller logic here
         return $this->json([
             'message' => 'Exchange rates retrieved successfully!',
-            'data' => $data,
+            'data' => $response,
         ]);
     }
 }

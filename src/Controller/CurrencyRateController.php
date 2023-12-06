@@ -10,7 +10,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class CurrencyRateController extends AbstractController
 {
-    #[Route('/', name: 'app_currency_rate')]
+    #[Route('/', name: 'app_currency_rate',)]
     public function index(Request $request): JsonResponse
     {
         $accessKey = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
@@ -41,11 +41,11 @@ class CurrencyRateController extends AbstractController
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 200 && $statusCode < 300) {
             // Get the response content as an array
-            // $data = $response->toArray();
+            $data = $response->toArray();
 
             return $this->json([
                 'message' => 'Data retrieved successfully!',
-                'data' => $response,
+                'data' => $data,
             ]);
         } else {
             return $this->json([

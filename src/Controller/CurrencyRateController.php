@@ -18,7 +18,7 @@ class CurrencyRateController extends AbstractController
 
         $requestData = [
             'brokerId' => '32',
-            'securityCode' => 'AARD-O-0000',
+            'securityCode' => '',
             'infoType' => '',
             'mostId' => '',
             'connId' => 0,

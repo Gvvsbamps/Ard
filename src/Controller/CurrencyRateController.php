@@ -17,14 +17,14 @@ class CurrencyRateController extends AbstractController
         $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
 
         $requestData = [
-            'brokerId' => '32',
-            'securityCode' => 'AARD-O-0000',
-            'infoType' => '',
-            'mostId' => '',
             'connId' => 0,
-            'marketCode' => '',
+            'brokerId' => '',
+            'mostId' => '',
+            'infoType' => 'A',
+            'type' => 'SEC',
+            'marketCode' => 'MSE',
             'affCustId' => '',
-            'srcFiCode' => '32',
+            'srcFiCode' => '',
             'traceNo' => '',
             'wallet' => '',
         ];

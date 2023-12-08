@@ -50,7 +50,6 @@ class CurrencyRateController extends AbstractController
         } else {
             return $this->json([
                 'error' => 'Failed to retrieve data.',
-                'data' => $response->getContent(),
                 'statusCode' => $statusCode,
             ], $statusCode);
         }

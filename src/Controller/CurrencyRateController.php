@@ -23,10 +23,10 @@ class CurrencyRateController extends AbstractController
             'infoType' => 'A',
             'type' => 'SEC',
             'marketCode' => 'MSE',
+            'wallet' => '',
             'affCustId' => '',
             'srcFiCode' => '',
-            'traceNo' => '',
-            'wallet' => '',
+            'traceNo' => ''
         ];
 
         $httpClient = HttpClient::create();

@@ -39,19 +39,12 @@ class CurrencyRateController extends AbstractController
         ]);
 
         $statusCode = $response->getStatusCode();
-        if ($statusCode >= 200 && $statusCode < 300) {
-            // Get the response content as an array
-            $data = $response->toArray();
+        // Get the response content as an array
+        $data = $response->toArray();
 
-            return $this->json([
-                'message' => 'Data retrieved successfully!',
-                'data' => $data,
-            ]);
-        } else {
-            return $this->json([
-                'error' => 'Failed to retrieve data.',
-                'statusCode' => $statusCode,
-            ], $statusCode);
-        }
+        return $this->json([
+            'message' => 'Data retrieved successfully!',
+            'data' => $data,
+        ]);
     }
 }

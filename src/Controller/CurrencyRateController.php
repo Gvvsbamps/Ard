@@ -14,7 +14,8 @@ class CurrencyRateController extends AbstractController
     public function index(Request $request): JsonResponse
     {
         $accessKey = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
-        $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
+        // $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
+        $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getSecurityList';
 
         $requestData = [
             'connId' => 0,
@@ -26,7 +27,7 @@ class CurrencyRateController extends AbstractController
             'wallet' => '',
             'affCustId' => '',
             'srcFiCode' => '',
-            'traceNo' => ''
+            'traceNo' => '',
         ];
 
         $httpClient = HttpClient::create();
@@ -39,12 +40,19 @@ class CurrencyRateController extends AbstractController
         ]);
 
         $statusCode = $response->getStatusCode();
-        // Get the response content as an array
-        $data = $response->toArray();
+        if ($statusCode >= 200 && $statusCode < 300) {
+            // Get the response content as an array
+            $data = $response->toArray();
 
-        return $this->json([
-            'message' => 'Data retrieved successfully!',
-            'data' => $data,
-        ]);
+            return $this->json([
+                'message' => 'Data retrieved successfully!',
+                'data' => $data,
+            ]);
+        } else {
+            return $this->json([
+                'error' => 'Failed to retrieve data.',
+                'statusCode' => $statusCode,
+            ], $statusCode);
+        }
     }
 }

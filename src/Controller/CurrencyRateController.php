@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mailer\Exception\TransportException;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -64,8 +62,9 @@ class CurrencyRateController extends AbstractController
             ], $statusCode);
         }
     }
+
     /**
-     * @Route("/proseed-mailer", name="app_mailer",method={"GET"})
+     * @Route("/proseed-mailer", name="app_mailer", methods={"GET"})
      */
     public function mailer(Request $request, MailerInterface $mailer): Response
     {

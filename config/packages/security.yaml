@@ -1,4 +1,4 @@
-security:
-  access_control:
-    - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/proseed-mailer, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+# security:
+#   access_control:
+#     - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#     - { path: ^/proseed-mailer, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -2,5 +2,5 @@ index:
   path: /
   controller: App\Controller\CurrencyRateController::index
 mailer:
-  path: /proseed-mailer
+  path: /proseedMailer
   controller: App\Controller\ProseedMailerController::index

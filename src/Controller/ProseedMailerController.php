@@ -39,9 +39,15 @@ class ProseedMailerController extends AbstractController
             $mailer->send($email);
             $mailer->send($emailUser);
         }catch (\ErrorException $e){
-            return new Response('Error');
+            return new JsonResponse('error');
         }
 
-        return new Response('Success');
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        $response->headers->set('Access-Control-Max-Age', '3600');
+        $response->setContent('success');
+        return $response;
     }
 }

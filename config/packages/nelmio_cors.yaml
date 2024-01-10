@@ -1,10 +1,17 @@
 nelmio_cors:
-  paths:
-    "^/": ~
   defaults:
     allow_credentials: false
     allow_origin: ["*"]
     allow_headers: ["Content-Type", "Authorization"]
-    allow_methods: ["GET", "OPTIONS"]
+    allow_methods: ["GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
     expose_headers: ["Link"]
     max_age: 3600
+  paths:
+    "^/": ~
+    "^/proseed-mailer":
+      origin_regex: true
+      allow_origin: ["*"]
+      allow_methods: ["GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
+      allow_headers: ["*"]
+      expose_headers: ["Link"]
+      max_age: 3600

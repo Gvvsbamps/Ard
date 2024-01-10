@@ -6,12 +6,26 @@ nelmio_cors:
     allow_methods: ["GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
     expose_headers: ["Link"]
     max_age: 3600
+  #   paths:
+  #     "^/": ~
+  #     "^/proseed-mailer":
+  #       origin_regex: true
+  #       allow_origin: ["*"]
+  #       allow_methods: ["GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
+  #       allow_headers: ["*"]
+  #       expose_headers: ["Link"]
+  #       max_age: 3600
+  # nelmio_cors:
   paths:
-    "^/": ~
     "^/proseed-mailer":
       origin_regex: true
-      allow_origin: ["*"]
+      allow_origin:
+        [
+          '^http://127\.0\.0\.1:5500$',
+          "https://proseed.mn",
+          "^http://103.119.92.238$",
+        ]
       allow_methods: ["GET", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
-      allow_headers: ["*"]
+      allow_headers: ["Content-Type", "Authorization"]
       expose_headers: ["Link"]
       max_age: 3600

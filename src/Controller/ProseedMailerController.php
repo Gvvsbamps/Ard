@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProseedMailerController extends AbstractController
 {
     /**
-     * @Route("/proseed-mailer", name="app_mailer", methods={"GET"})
+     * @Route("/proseedMailer", name="app_mailer", methods={"GET"})
      */
     public function index(Request $request, MailerInterface $mailer): Response
     {

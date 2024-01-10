@@ -84,9 +84,12 @@ class CurrencyRateController extends AbstractController
             ->subject('Proseed Agency')
             ->text('Амжилттай илгээгдлээ. Бид танд тохирох туршлагатай мэргэжилтнийг санал болгох болно.' . "\n" . 'Баярлалаа
             ');
-
-        $mailer->send($email);
-        $mailer->send($emailUser);
+        try {
+            $mailer->send($email);
+            $mailer->send($emailUser);
+        }catch (\ErrorException $e){
+            return new Response('Error');
+        }
 
         return new Response('Success');
     }

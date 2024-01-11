@@ -11,11 +11,14 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Route="proseedMailer"
+ */
 
 class ProseedMailerController extends AbstractController
 {
     /**
-     * @Route("/proseedMailer", name="app_mailer", methods={"GET"})
+     * @Route("/", name="app_mailer", methods={"GET"})
      */
     public function index(Request $request, MailerInterface $mailer): Response
     {
@@ -49,5 +52,15 @@ class ProseedMailerController extends AbstractController
         $response->headers->set('Access-Control-Max-Age', '3600');
         $response->setContent('success');
         return $response;
+    }
+
+    /**
+     * @Route("/send", name="app_send_mailer")
+     */
+    public function send(Request $request): JsonResponse
+    {
+        return  $this->json([
+            'status' => 'Error'
+        ]);
     }
 }

@@ -4,3 +4,6 @@ index:
 mailer:
   path: /proseedMailer
   controller: App\Controller\ProseedMailerController::index
+send:
+  path: /proseedMailer/send
+  controller: App\Controller\ProseedMailerController::send

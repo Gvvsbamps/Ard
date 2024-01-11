@@ -5,21 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
-
-
-/**
- * Route="proseedMailer"
- */
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProseedMailerController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_mailer", methods={"GET"})
-     */
+    #[Route('/proseedMailer', name: 'send_mail')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
         $name = $request->get('name');
@@ -52,15 +45,5 @@ class ProseedMailerController extends AbstractController
         $response->headers->set('Access-Control-Max-Age', '3600');
         $response->setContent('success');
         return $response;
-    }
-
-    /**
-     * @Route("/send", name="app_send_mailer")
-     */
-    public function send(Request $request): JsonResponse
-    {
-        return  $this->json([
-            'status' => 'Error'
-        ]);
     }
 }

@@ -1,8 +1,14 @@
 index:
   path: /
   controller: App\Controller\CurrencyRateController::index
+<<<<<<< HEAD
 
 send_mail:
   path: /proseedMailer
   controller: App\Controller\ProseedMailerController::index
 
+=======
+detail:
+  path: /detail
+  controller: App\Controller\CurrencyRateController::detail
+>>>>>>> 19435e9c3b4545c8125a16cd00eb7f7fc5816c95

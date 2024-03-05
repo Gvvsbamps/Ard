@@ -19,34 +19,6 @@ class CurrencyRateController extends AbstractController
     /**
      * @Route("/", name="app_index")
      */
-<<<<<<< HEAD
-    public function index(Request $request): JsonResponse
-    {
-        $accessKey = 'n6BvkdPjAvX772cYZ0zrBwRWbsJn9p';
-        // $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getScMarketInfo';
-        $apiUrl = 'https://j2me.mostmoney.mn:9097/api/fi/v1.0/getSecurityList';
-
-        $requestData = [
-            'connId' => 0,
-            'brokerId' => '',
-            'mostId' => '',
-            'infoType' => 'A',
-            'type' => 'SEC',
-            'marketCode' => 'MSE',
-            'wallet' => '',
-            'affCustId' => '',
-            'srcFiCode' => '',
-            'traceNo' => '',
-        ];
-
-        $httpClient = HttpClient::create();
-        $response = $httpClient->request('POST', $apiUrl, [
-            'headers' => [
-                'nessession' => $accessKey,
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $requestData,
-=======
     public function index(
         EntityManagerInterface $entityManager,
     ): Response {
@@ -91,7 +63,6 @@ class CurrencyRateController extends AbstractController
         // }
         return $this->json([
             'status' => $items,
->>>>>>> 19435e9c3b4545c8125a16cd00eb7f7fc5816c95
         ]);
     }
     /**

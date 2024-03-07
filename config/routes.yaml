@@ -1,8 +1,6 @@
 index:
-  path: /
+  path: /{symbol}
   controller: App\Controller\CurrencyRateController::index
-
 detail:
-  path: /detail
+  path: /
   controller: App\Controller\CurrencyRateController::detail
-

@@ -2,5 +2,11 @@ index:
   path: /{symbol}
   controller: App\Controller\CurrencyRateController::index
 detail:
-  path: /
+  path: /detail/{symbol}
   controller: App\Controller\CurrencyRateController::detail
+list:
+  path: /list/{page}
+  controller: App\Controller\CurrencyRateController::list
+miniChart:
+  path: /mini-chart/{symbol}
+  controller: App\Controller\CurrencyRateController::miniChart

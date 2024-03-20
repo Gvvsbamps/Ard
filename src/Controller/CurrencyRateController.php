@@ -22,7 +22,7 @@ class CurrencyRateController extends AbstractController
     ): Response {
         $conn = $entityManager->getConnection();
         $client = new Client();
-        $sql = "Select FORMAT (c.volume, 'c', 'mn-Mong-MN') as total_volume,s.turnover,s.trades, c.symbol,c.namemn,FORMAT (s.OpeningPrice, 'c', 'mn-Mong-MN') as today_opening,FORMAT (s.ClosingPrice, 'c', 'mn-Mong-MN') as today_closing ,FORMAT (s.PreviousClose, 'c', 'mn-Mong-MN') as prev_close
+        $sql = "Select FORMAT (c.volume, 'c', 'mn-Mong-MN') as total_volume, FORMAT ( s.Turnover, 'c', 'mn-Mong-MN') as turnover,s.trades, c.symbol,c.namemn,FORMAT (s.OpeningPrice, 'c', 'mn-Mong-MN') as today_opening,FORMAT (s.ClosingPrice, 'c', 'mn-Mong-MN') as today_closing ,FORMAT (s.PreviousClose, 'c', 'mn-Mong-MN') as prev_close, c.isin, FORMAT (s.VWAP, 'c', 'mn-Mong-MN') as today_vwap,FORMAT ( s.HighestBidPrice, 'c', 'mn-Mong-MN') as buy_highest, FORMAT (s.LowestOfferPrice, 'c', 'mn-Mong-MN') as sell_lowest , s.volume as volume_count
 from _securitytradingstatus s inner join companyinfo c on c.companycode = s.companycode where c.symbol = :symbol and MDSubOrderBookType = :type";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue('type', 'Regular');
@@ -51,11 +51,13 @@ from _securitytradingstatus s inner join companyinfo c on c.companycode = s.comp
         );
     }
     /**
-     * @Route("/detail/{symbol}", name="app_detail")
+     * @Route("/detail/{symbol}/{begin}/{end}", name="app_detail")
      */
     public function detail(
         EntityManagerInterface $entityManager,
-        $symbol
+        $symbol,
+        $begin,
+        $end
     ): Response {
         $conn = $entityManager->getConnection();
         $sql = "SELECT companycode from companyinfo where symbol = :symbol";
@@ -64,11 +66,15 @@ from _securitytradingstatus s inner join companyinfo c on c.companycode = s.comp
         $result = $stmt->executeQuery();
         $data = $result->fetchAssociative();
         $companyCode = $data['companycode'];
-        $sql1 = "select h.OpeningPrice, h.dates from _securitytradingstatus_history h inner join companyinfo c on c.companycode = h.companycode where c.companycode = :companycode and OpeningPrice != 0 order by h.dates DESC limit 800";
+
+        $sql1 = "SELECT h.OpeningPrice, STR_TO_DATE(h.dates, '%Y-%m-%d') as date FROM _securitytradingstatus_history h INNER JOIN companyinfo c ON c.companycode = h.companycode WHERE c.companycode = :companycode AND OpeningPrice != 0 AND STR_TO_DATE(h.dates, '%Y-%m-%d') BETWEEN :begin AND :end  LIMIT 800";
         $stmt1 = $conn->prepare($sql1);
         $stmt1->bindValue('companycode', $companyCode);
+        $stmt1->bindValue('begin', $begin);
+        $stmt1->bindValue('end', $end);
         $result1 = $stmt1->executeQuery();
         $detail = $result1->fetchAllAssociative();
+
         return $this->json([
             'data' => $detail,
         ]);
@@ -87,7 +93,7 @@ from _securitytradingstatus s inner join companyinfo c on c.companycode = s.comp
         $result = $stmt->executeQuery();
         $data = $result->fetchAssociative();
         $companyCode = $data['companycode'];
-        $sql1 = "select h.OpeningPrice, h.dates from _securitytradingstatus_history h inner join companyinfo c on c.companycode = h.companycode where c.companycode = :companycode";
+        $sql1 = "SELECT h.OpeningPrice, h.dates FROM _securitytradingstatus_history h INNER JOIN companyinfo c ON c.companycode = h.companycode WHERE c.companycode = :companycode AND MONTH(h.dates) = MONTH(CURRENT_DATE())";
         $stmt1 = $conn->prepare($sql1);
         $stmt1->bindValue('companycode', $companyCode);
         $result1 = $stmt1->executeQuery();
@@ -107,8 +113,8 @@ from _securitytradingstatus s inner join companyinfo c on c.companycode = s.comp
         $limit = 10;
         $offset = ($page - 1) * $limit;
         $sql = "Select FORMAT (c.volume, 'c', 'mn-Mong-MN') as total_volume,s.turnover,s.trades, c.symbol,c.namemn,FORMAT (s.OpeningPrice, 'c', 'mn-Mong-MN') as today_opening,FORMAT (s.ClosingPrice, 'c', 'mn-Mong-MN') as today_closing ,FORMAT (s.PreviousClose, 'c', 'mn-Mong-MN') as prev_close
-        from _securitytradingstatus s inner join companyinfo c on c.companycode = s.companycode where MDSubOrderBookType = :type
-        LIMIT :limit OFFSET :offset";
+        from _securitytradingstatus s inner join companyinfo c on c.companycode = s.companycode where MDSubOrderBookType = :type order by c.volume DESC
+        LIMIT :limit OFFSET :offset ";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue('type', 'Regular');
         $stmt->bindValue('limit', $limit, \PDO::PARAM_INT);

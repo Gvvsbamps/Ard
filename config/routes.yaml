@@ -2,7 +2,7 @@ index:
   path: /{symbol}
   controller: App\Controller\CurrencyRateController::index
 detail:
-  path: /detail/{symbol}
+  path: /detail/{symbol}/{begin}/{end}
   controller: App\Controller\CurrencyRateController::detail
 list:
   path: /list/{page}
